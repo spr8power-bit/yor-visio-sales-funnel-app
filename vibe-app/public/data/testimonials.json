@@ -1,0 +1,68 @@
+{
+  "testimonials": [
+    {
+      "displayOrder": 1,
+      "type": "image",
+      "customerName": "Trusted by Professionals",
+      "customerLocation": "Metro Manila Based",
+      "reviewDate": "",
+      "reviewText": "Conference testimonial material shared with permission by naturopathy professionals and event participants.",
+      "packageName": "",
+      "testimonialImage": "/images/yor-vision/testimonials/yor-vision-testimonial-naturopathy-doctors.png",
+      "altText": "YOR Vision testimonial graphic featuring naturopathy conference participants and YOR Vision Mineral Drops.",
+      "caption": "Trusted by Professionals",
+      "isVerified": false,
+      "isPublished": true,
+      "consentConfirmed": true,
+      "complianceStatus": "approved"
+    },
+    {
+      "displayOrder": 2,
+      "type": "image",
+      "customerName": "Personal Eye Wellness Experience",
+      "customerLocation": "Quezon City, Metro Manila",
+      "reviewDate": "",
+      "reviewText": "Customer experience graphic showing guided daily eye wellness support shared with permission.",
+      "packageName": "",
+      "testimonialImage": "/images/yor-vision/testimonials/yor-vision-testimonial-liza-metro-manila.png",
+      "altText": "YOR Vision customer experience graphic showing a guided personal eye wellness activity.",
+      "caption": "Personal Eye Wellness Experience",
+      "isVerified": false,
+      "isPublished": true,
+      "consentConfirmed": true,
+      "complianceStatus": "approved"
+    },
+    {
+      "displayOrder": 3,
+      "type": "image",
+      "customerName": "Comfortable Experience Starts With Proper Care",
+      "customerLocation": "Davao City",
+      "reviewDate": "",
+      "reviewText": "Community experience graphic showing a wellness participant receiving attentive assistance and personal care.",
+      "packageName": "",
+      "testimonialImage": "/images/yor-vision/testimonials/yor-vision-testimonial-community-experience.png",
+      "altText": "YOR Vision community experience graphic showing an in-person wellness session and attentive assistance.",
+      "caption": "Comfortable Experience Starts With Proper Care",
+      "isVerified": false,
+      "isPublished": true,
+      "consentConfirmed": true,
+      "complianceStatus": "approved"
+    },
+    {
+      "displayOrder": 4,
+      "type": "image",
+      "customerName": "Responsible Daily Wellness Support",
+      "customerLocation": "Quezon City",
+      "reviewDate": "",
+      "reviewText": "Customer testimonial graphic highlighting clearer, more comfortable, and more confident daily eye wellness support.",
+      "packageName": "",
+      "testimonialImage": "/images/yor-vision/testimonials/yor-vision-testimonial-responsible-care.png",
+      "altText": "YOR Vision customer testimonial graphic showing careful and attentive wellness assistance during a daily eye wellness routine.",
+      "caption": "Responsible Daily Wellness Support",
+      "isVerified": false,
+      "isPublished": true,
+      "consentConfirmed": true,
+      "complianceStatus": "approved"
+    }
+  ]
+}

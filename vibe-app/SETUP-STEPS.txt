@@ -1,0 +1,12 @@
+Your Laravel files have been created in vibe-app.
+
+To install the missing PHP dependencies, open normal PowerShell and run:
+
+cd "C:\Users\Admin\Documents\Project YOR Vision Product\vibe-app"
+composer install
+php artisan key:generate
+php artisan serve --host=127.0.0.1 --port=8001
+
+Then open http://127.0.0.1:8001
+
+If Composer or PHP is not recognized, install Laragon for Windows, then reopen PowerShell and run the same commands again.

@@ -1,0 +1,7 @@
+.agents/
+.DS_Store
+Thumbs.db
+
+vibe-app/.env
+vibe-app/server.err.log
+vibe-app/server.out.log

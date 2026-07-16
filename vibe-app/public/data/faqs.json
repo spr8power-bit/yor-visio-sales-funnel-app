@@ -1,0 +1,146 @@
+{
+  "editing_note": "Edit this file to update the FAQ section. Replace the question and answer values below. Keep ids 1-20 and keep schemaEnabled false until all public FAQ content is final and verified.",
+  "schemaEnabled": false,
+  "categories": [
+    "Product Information",
+    "Ingredients and Wellness Support",
+    "How to Use and Daily Routine",
+    "Payment and Delivery",
+    "Customer Support and Order Concerns"
+  ],
+  "faqs": [
+    {
+      "id": 1,
+      "category": "Product Information",
+      "question": "What is YOR Vision Mineral Drops?",
+      "answer": "YOR Vision Mineral Drops is a mineral-based eye wellness product formulated to support everyday eye comfort, hydration, and visual wellness, especially for people with modern digital lifestyles."
+    },
+    {
+      "id": 2,
+      "category": "Product Information",
+      "question": "Who can use YOR Vision Mineral Drops?",
+      "answer": "It is intended for adults who want to include eye wellness as part of their daily self-care routine. If you have a specific eye condition, consult your healthcare professional before use."
+    },
+    {
+      "id": 3,
+      "category": "Product Information",
+      "question": "Is it suitable for people who use computers or smartphones every day?",
+      "answer": "Yes. It is designed with modern digital lifestyles in mind and can be part of a daily eye wellness routine for people who spend long hours in front of screens."
+    },
+    {
+      "id": 4,
+      "category": "Ingredients and Wellness Support",
+      "question": "What are the active ingredients?",
+      "answer": "YOR Vision Mineral Drops contains carefully selected ingredients including Glycerin, Vitamin C, Zinc, Lutein, Zeaxanthin, and Astaxanthin."
+    },
+    {
+      "id": 5,
+      "category": "How to Use and Daily Routine",
+      "question": "How do I use the product?",
+      "answer": "Use only as directed on the product label or according to the advice of your healthcare professional. Always follow the recommended instructions."
+    },
+    {
+      "id": 6,
+      "category": "How to Use and Daily Routine",
+      "question": "Is it safe for everyday use?",
+      "answer": "When used according to the product instructions, it is intended to be part of a regular eye wellness routine. Follow all label directions and precautions."
+    },
+    {
+      "id": 7,
+      "category": "Product Information",
+      "question": "Is the product FDA registered?",
+      "answer": "Refer to the product packaging for the current FDA registration details. Always purchase from authorized sellers to ensure authenticity."
+    },
+    {
+      "id": 8,
+      "category": "Ingredients and Wellness Support",
+      "question": "Is YOR Vision made with natural ingredients?",
+      "answer": "The formulation includes selected naturally derived ingredients together with other carefully chosen components, as indicated on the product label."
+    },
+    {
+      "id": 9,
+      "category": "How to Use and Daily Routine",
+      "question": "Can I use it while wearing contact lenses?",
+      "answer": "Follow the product instructions regarding contact lens use. If unsure, remove your contact lenses first and consult your eye care professional."
+    },
+    {
+      "id": 10,
+      "category": "How to Use and Daily Routine",
+      "question": "How should I store the bottle?",
+      "answer": "Store it in a cool, dry place away from direct sunlight, and keep the bottle tightly closed after each use."
+    },
+    {
+      "id": 11,
+      "category": "How to Use and Daily Routine",
+      "question": "How long does one bottle last?",
+      "answer": "Usage depends on how often the product is used. Following the recommended instructions helps maximize each bottle."
+    },
+    {
+      "id": 12,
+      "category": "Product Information",
+      "question": "Does it require a prescription?",
+      "answer": "Use the product according to its labeling requirements in your market. If you have questions about whether it is appropriate for you, consult a healthcare professional."
+    },
+    {
+      "id": 13,
+      "category": "How to Use and Daily Routine",
+      "question": "Can I use it together with other eye care products?",
+      "answer": "If you are using prescription eye medications or multiple eye care products, consult your healthcare professional for guidance on proper use."
+    },
+    {
+      "id": 14,
+      "category": "Ingredients and Wellness Support",
+      "question": "What makes YOR Vision different?",
+      "answer": "YOR Vision focuses on supporting everyday eye wellness through a carefully selected ingredient blend while encouraging healthy eye care habits for today's digital lifestyle."
+    },
+    {
+      "id": 15,
+      "category": "Customer Support and Order Concerns",
+      "question": "How long before I notice a difference?",
+      "answer": "Individual experiences vary depending on personal factors and usage. Use the product consistently as directed and maintain healthy eye care habits."
+    },
+    {
+      "id": 16,
+      "category": "Product Information",
+      "question": "Is this a medicine?",
+      "answer": "No. YOR Vision Mineral Drops is intended to support eye wellness and is not intended to diagnose, treat, cure, or prevent any disease."
+    },
+    {
+      "id": 17,
+      "category": "Customer Support and Order Concerns",
+      "question": "Is this product suitable for seniors?",
+      "answer": "Many adults, including seniors, may choose to include eye wellness products in their daily routine. Seniors with existing eye conditions should consult their healthcare professional before use."
+    },
+    {
+      "id": 18,
+      "category": "Payment and Delivery",
+      "question": "Can I purchase anywhere in the Philippines?",
+      "answer": "Yes. Orders can be placed through our official online channels, and we aim to deliver nationwide where shipping services are available."
+    },
+    {
+      "id": 19,
+      "category": "Payment and Delivery",
+      "question": "What payment methods do you accept?",
+      "answer": "We support secure online payment options through our checkout system, making ordering simple and convenient."
+    },
+    {
+      "id": 20,
+      "category": "Customer Support and Order Concerns",
+      "question": "Why should I choose YOR Vision?",
+      "answer": "Because caring for your eyes today helps support your daily comfort and visual wellness tomorrow. YOR Vision is designed to be part of that long-term eye care routine."
+    }
+  ],
+  "trustBox": {
+    "heading": "Why Customers Choose YOR Vision",
+    "items": [
+      "Designed for today's digital lifestyle",
+      "Carefully selected eye wellness ingredients",
+      "Simple and convenient daily routine",
+      "Nationwide delivery available",
+      "Secure online checkout",
+      "Dedicated customer support",
+      "Orders quality checked before shipping",
+      "Focused on long-term eye wellness"
+    ]
+  }
+}
