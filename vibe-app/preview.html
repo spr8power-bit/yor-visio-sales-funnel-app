@@ -107,8 +107,12 @@
       object-fit: contain;
     }
     .header-mobile-cta {
+      display: inline-flex;
+      align-items: center;
       flex-shrink: 0;
       justify-content: center;
+      text-align: center;
+      line-height: 1;
       white-space: nowrap;
     }
 

@@ -1,7 +1,9 @@
 .agents/
+.deploy_tools/
 .DS_Store
 Thumbs.db
 
+dreamhost-site/
 vibe-app/.env
 vibe-app/server.err.log
 vibe-app/server.out.log
