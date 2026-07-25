@@ -1666,14 +1666,9 @@
 
             <div class="mt-8">
               <h3 class="text-lg font-black">Payment Method</h3>
-              <div class="mt-4 grid gap-4 sm:grid-cols-2">
-                <label class="payment-card cursor-pointer rounded-2xl border border-orange-400 bg-orange-50 p-4 shadow-sm">
-                  <input class="sr-only" type="radio" name="payment" value="cod" checked>
-                  <span class="block font-black text-[#0B1F33]">Cash on Delivery</span>
-                  <span class="text-sm text-slate-600">Pay when your order arrives.</span>
-                </label>
+              <div class="mt-4 grid gap-4">
                 <label class="payment-card cursor-pointer rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-                  <input class="sr-only" type="radio" name="payment" value="xendit">
+                  <input class="sr-only" type="radio" name="payment" value="xendit" checked>
                   <span class="block font-black text-[#0B1F33]">Pay Online via Xendit</span>
                   <span class="text-sm text-slate-600">Use cards, e-wallets, OTC, and other supported Philippine payment methods.</span>
                 </label>
