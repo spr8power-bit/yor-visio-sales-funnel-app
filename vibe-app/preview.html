@@ -1609,7 +1609,7 @@
 
       <section id="faq" class="faq-section mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="faq-shell">
-          <aside class="faq-side reveal">
+          <aside class="faq-side reveal is-visible">
             <p class="text-sm font-black uppercase tracking-[.22em] text-[#FF6900]">Need More Information?</p>
             <h2 class="mt-3 text-3xl font-black text-[#0B1F33] sm:text-5xl">Frequently Asked Questions</h2>
             <p class="mt-5 text-lg leading-8 text-slate-600">Find clear answers about YOR VISION Mineral Drops, product information, ordering, payment, delivery, and customer support.</p>
@@ -1621,7 +1621,7 @@
             </div>
           </aside>
 
-          <div class="reveal">
+          <div class="reveal is-visible">
             <div class="grid gap-4 rounded-[1.5rem] border border-slate-200 bg-white/80 p-4 shadow-sm">
               <div class="faq-search">
                 <label class="sr-only" for="faqSearch">Search frequently asked questions</label>
