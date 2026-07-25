@@ -1709,6 +1709,23 @@
               </ul>
             </details>
             <div class="mt-6 rounded-2xl bg-white/70 p-4 text-sm font-semibold text-slate-600">Secure checkout • Clear order summary • Responsible wellness language</div>
+            <section class="mt-6 rounded-[2rem] border border-slate-200 bg-white/80 p-5 shadow-sm">
+              <p class="text-xs font-black uppercase tracking-[.2em] text-[#B54708]">Delivery Partners</p>
+              <h4 class="mt-2 text-lg font-black text-[#0B1F33]">Fast and secure delivery with trusted courier partners</h4>
+              <p class="mt-2 text-sm leading-6 text-slate-600">Orders are prepared for safe nationwide delivery through our active courier network.</p>
+              <div class="mt-5 grid grid-cols-1 gap-3">
+                <div class="flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-4 py-3">
+                  <img src="/images/yor-vision/partners/jt-partner.png" alt="J&T Express delivery partner logo" class="h-10 w-auto max-w-full object-contain" loading="lazy">
+                </div>
+                <div class="flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-4 py-3">
+                  <img src="/images/yor-vision/partners/spx-partner.png" alt="SPX delivery partner logo" class="h-10 w-auto max-w-full object-contain" loading="lazy">
+                </div>
+                <div class="flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-4 py-3">
+                  <img src="/images/yor-vision/partners/lbc-partner.png" alt="LBC delivery partner logo" class="h-12 w-auto max-w-full object-contain" loading="lazy">
+                </div>
+              </div>
+              <div class="mt-4 rounded-2xl bg-[#F8FAFC] px-4 py-3 text-xs font-semibold leading-5 text-slate-500">Partner logo display is for courier fulfillment trust signaling during checkout and does not change your current order process.</div>
+            </section>
           </aside>
         </div>
       </div>
