@@ -751,6 +751,10 @@
       position: sticky;
       top: 7.5rem;
     }
+    .faq-side-copy {
+      display: grid;
+      gap: 0;
+    }
     .faq-search {
       position: relative;
     }
@@ -1042,11 +1046,23 @@
       .lifestyle-card { min-height: 15rem; }
       .lifestyle-visual { width: 10.5rem; }
       .faq-shell {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
       }
       .faq-side {
         position: static;
+        display: contents;
+      }
+      .faq-side-copy {
+        order: 1;
+      }
+      .faq-main {
+        order: 2;
+      }
+      .faq-support-card {
+        order: 3;
+        margin-top: 0;
       }
       .faq-question {
         gap: .75rem;
@@ -1610,18 +1626,20 @@
       <section id="faq" class="faq-section mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="faq-shell">
           <aside class="faq-side reveal is-visible">
-            <p class="text-sm font-black uppercase tracking-[.22em] text-[#FF6900]">Need More Information?</p>
-            <h2 class="mt-3 text-3xl font-black text-[#0B1F33] sm:text-5xl">Frequently Asked Questions</h2>
-            <p class="mt-5 text-lg leading-8 text-slate-600">Find clear answers about YOR VISION Mineral Drops, product information, ordering, payment, delivery, and customer support.</p>
+            <div class="faq-side-copy">
+              <p class="text-sm font-black uppercase tracking-[.22em] text-[#FF6900]">Need More Information?</p>
+              <h2 class="mt-3 text-3xl font-black text-[#0B1F33] sm:text-5xl">Frequently Asked Questions</h2>
+              <p class="mt-5 text-lg leading-8 text-slate-600">Find clear answers about YOR VISION Mineral Drops, product information, ordering, payment, delivery, and customer support.</p>
+            </div>
 
-            <div class="mt-8 rounded-[1.75rem] border border-orange-100 bg-white/90 p-5 shadow-sm">
+            <div class="faq-support-card mt-8 rounded-[1.75rem] border border-orange-100 bg-white/90 p-5 shadow-sm">
               <h3 class="text-lg font-black text-[#0B1F33]">Still have questions?</h3>
               <p class="mt-2 text-sm leading-6 text-slate-600">Our customer support team is ready to assist with product and ordering concerns.</p>
               <button type="button" class="btn-primary mt-5 inline-flex min-h-[52px] items-center justify-center gap-3 px-6 font-black" data-scroll="#plans">Choose Your YOR VISION Package <span class="arrow">→</span></button>
             </div>
           </aside>
 
-          <div class="reveal is-visible">
+          <div class="faq-main reveal is-visible">
             <div class="grid gap-4 rounded-[1.5rem] border border-slate-200 bg-white/80 p-4 shadow-sm">
               <div class="faq-search">
                 <label class="sr-only" for="faqSearch">Search frequently asked questions</label>
