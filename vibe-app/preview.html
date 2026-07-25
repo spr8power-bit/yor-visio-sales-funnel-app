@@ -375,6 +375,15 @@
     .btn-primary:active { transform: scale(.98); }
     .btn-primary .arrow { transition: transform .2s ease; }
     .btn-primary:hover .arrow { transform: translateX(4px); }
+    .checkout-submit-label {
+      display: inline-flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      line-height: 1.1;
+      text-wrap: balance;
+    }
 
     .plan-card {
       transform-style: preserve-3d;
@@ -1669,14 +1678,14 @@
               <div class="mt-4 grid gap-4">
                 <label class="payment-card cursor-pointer rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
                   <input class="sr-only" type="radio" name="payment" value="xendit" checked>
-                  <span class="block font-black text-[#0B1F33]">Pay Online via Xendit</span>
-                  <span class="text-sm text-slate-600">Use cards, e-wallets, OTC, and other supported Philippine payment methods.</span>
+                  <span class="block font-black text-[#0B1F33]">Secure Online Payment</span>
+                  <span class="text-sm text-slate-600">Pay using cards, e-wallets, OTC, and other supported Philippine payment methods.</span>
                 </label>
               </div>
             </div>
 
-            <button id="placeOrderBtn" type="submit" class="btn-primary mt-8 inline-flex w-full items-center justify-center gap-3 px-8 py-4 text-base font-black">
-              <span class="btn-label">Complete My Order</span><span class="arrow">→</span>
+            <button id="placeOrderBtn" type="submit" class="btn-primary mt-8 inline-flex min-h-[60px] w-full items-center justify-center gap-3 px-5 py-4 text-base font-black sm:px-8">
+              <span class="btn-label checkout-submit-label">Proceed to Payment</span><span class="arrow shrink-0">→</span>
             </button>
           </form>
 
@@ -2418,7 +2427,7 @@
     }
 
     function paymentLabel(paymentType) {
-      if (paymentType === 'xendit') return 'Xendit Hosted Checkout';
+      if (paymentType === 'xendit') return 'Secure Online Payment';
       return 'Cash on Delivery';
     }
 
@@ -2443,7 +2452,7 @@
           ? 'payment-card cursor-pointer rounded-2xl border border-orange-400 bg-orange-50 p-4 shadow-sm'
           : 'payment-card cursor-pointer rounded-2xl border border-slate-200 bg-white p-4 shadow-sm';
       });
-      setSubmitButtonState(selectedPaymentMethod() === 'xendit' ? 'Continue to Secure Payment' : 'Complete My Order');
+      setSubmitButtonState(selectedPaymentMethod() === 'xendit' ? 'Proceed to Payment' : 'Complete My Order');
     }
 
     function setStatusBadge(text = '', visible = false) {
@@ -2617,7 +2626,7 @@
       if (!fields.every(validateField)) return;
 
       const isOnlinePayment = selectedPaymentMethod() === 'xendit';
-      setSubmitButtonState(isOnlinePayment ? 'Preparing Secure Payment...' : 'Saving Order...', true);
+      setSubmitButtonState(isOnlinePayment ? 'Preparing Payment...' : 'Saving Order...', true);
 
       try {
         const result = await submitCheckout();
