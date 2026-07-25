@@ -1668,14 +1668,14 @@
               <h3 class="text-lg font-black">Payment Method</h3>
               <div class="mt-4 grid gap-4 sm:grid-cols-2">
                 <label class="payment-card cursor-pointer rounded-2xl border border-orange-400 bg-orange-50 p-4 shadow-sm">
-                  <input class="sr-only" type="radio" name="payment" value="Cash on Delivery" checked>
+                  <input class="sr-only" type="radio" name="payment" value="cod" checked>
                   <span class="block font-black text-[#0B1F33]">Cash on Delivery</span>
                   <span class="text-sm text-slate-600">Pay when your order arrives.</span>
                 </label>
                 <label class="payment-card cursor-pointer rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-                  <input class="sr-only" type="radio" name="payment" value="Bank / E-wallet Transfer">
-                  <span class="block font-black text-[#0B1F33]">Bank / E-wallet Transfer</span>
-                  <span class="text-sm text-slate-600">Receive payment instructions after order.</span>
+                  <input class="sr-only" type="radio" name="payment" value="xendit">
+                  <span class="block font-black text-[#0B1F33]">Pay Online via Xendit</span>
+                  <span class="text-sm text-slate-600">Use cards, e-wallets, OTC, and other supported Philippine payment methods.</span>
                 </label>
               </div>
             </div>
@@ -1726,8 +1726,9 @@
             <circle class="success-ring" cx="50" cy="50" r="35" stroke="#FF6900" stroke-width="6"/>
             <path class="success-check" d="M32 51l12 12 26-30" stroke="#0B1F33" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <h2 class="mt-6 text-4xl font-black text-[#0B1F33]">Your YOR VISION Order Is Confirmed</h2>
-          <p class="mx-auto mt-4 max-w-2xl text-slate-600">Thank you. Your YOR Vision order summary has been prepared and your delivery details are saved for this session.</p>
+          <h2 id="successTitle" class="mt-6 text-4xl font-black text-[#0B1F33]">Your YOR VISION Order Is Confirmed</h2>
+          <p id="successMessage" class="mx-auto mt-4 max-w-2xl text-slate-600">Thank you. Your YOR Vision order summary has been prepared and your delivery details are saved for this session.</p>
+          <div id="successStatusBadge" class="mx-auto mt-6 hidden w-fit rounded-full border border-orange-200 bg-orange-50 px-4 py-2 text-sm font-black text-[#B54708]"></div>
           <div class="mx-auto mt-8 max-w-2xl rounded-[2rem] bg-white p-6 text-left shadow-sm">
             <div class="mb-5 flex items-center gap-4">
               <img class="h-20 w-20 rounded-2xl object-contain bg-[#EAF6FC] p-2" src="/images/yor-vision/uploaded/yor-vision-bottle-uploaded-450w.webp" width="900" height="900" loading="lazy" alt="Front bottle image of YOR VISION Mineral Drops with original product label visible.">
@@ -1745,7 +1746,12 @@
             <div class="rounded-2xl bg-[#FFF3E8] p-4"><strong>2. Confirm</strong><p class="mt-1 text-sm text-slate-600">Support may contact you if needed.</p></div>
             <div class="rounded-2xl bg-white p-4"><strong>3. Deliver</strong><p class="mt-1 text-sm text-slate-600">Your order proceeds to fulfillment.</p></div>
           </div>
-          <button type="button" class="mt-8 rounded-2xl border border-slate-200 bg-white px-6 py-4 font-black text-[#0B1F33]" data-stage-target="select">Return to Product</button>
+          <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <button id="retryPaymentBtn" type="button" class="btn-primary hidden items-center justify-center gap-3 px-6 py-4 text-base font-black">
+              <span>Retry Secure Payment</span><span class="arrow">→</span>
+            </button>
+            <button type="button" class="rounded-2xl border border-slate-200 bg-white px-6 py-4 font-black text-[#0B1F33]" data-stage-target="select">Return to Product</button>
+          </div>
         </div>
       </div>
     </section>
@@ -2381,7 +2387,64 @@
     const form = document.getElementById('checkoutForm');
     const fields = [...form.querySelectorAll('input[required], select[required], textarea[required]')];
     const saved = JSON.parse(sessionStorage.getItem('yorCheckout') || '{}');
+    const placeOrderBtn = document.getElementById('placeOrderBtn');
+    const placeOrderLabel = placeOrderBtn.querySelector('.btn-label');
+    const retryPaymentBtn = document.getElementById('retryPaymentBtn');
+    const successTitle = document.getElementById('successTitle');
+    const successMessage = document.getElementById('successMessage');
+    const successStatusBadge = document.getElementById('successStatusBadge');
+    const paymentState = {
+      csrfToken: '',
+      orderReference: '',
+      pollHandle: null,
+    };
+
     Object.entries(saved).forEach(([key, value]) => { if (form.elements[key]) form.elements[key].value = value; });
+
+    function selectedPaymentMethod() {
+      return form.querySelector('input[name="payment"]:checked')?.value || 'cod';
+    }
+
+    function paymentLabel(paymentType) {
+      if (paymentType === 'xendit') return 'Xendit Hosted Checkout';
+      return 'Cash on Delivery';
+    }
+
+    function serializeCheckoutForm() {
+      const data = Object.fromEntries(new FormData(form).entries());
+      return {
+        ...data,
+        payment: selectedPaymentMethod(),
+        plan_key: state.selected,
+        quantity: state.qty,
+      };
+    }
+
+    function setSubmitButtonState(label, disabled = false) {
+      placeOrderBtn.disabled = disabled;
+      placeOrderLabel.textContent = label;
+    }
+
+    function syncPaymentCardState() {
+      document.querySelectorAll('input[name="payment"]').forEach(input => {
+        input.closest('.payment-card').className = input.checked
+          ? 'payment-card cursor-pointer rounded-2xl border border-orange-400 bg-orange-50 p-4 shadow-sm'
+          : 'payment-card cursor-pointer rounded-2xl border border-slate-200 bg-white p-4 shadow-sm';
+      });
+      setSubmitButtonState(selectedPaymentMethod() === 'xendit' ? 'Continue to Secure Payment' : 'Complete My Order');
+    }
+
+    function setStatusBadge(text = '', visible = false) {
+      successStatusBadge.textContent = text;
+      successStatusBadge.classList.toggle('hidden', !visible);
+    }
+
+    function stopOrderPolling() {
+      if (paymentState.pollHandle) {
+        clearTimeout(paymentState.pollHandle);
+        paymentState.pollHandle = null;
+      }
+    }
 
     function validateField(field) {
       let valid = field.checkValidity();
@@ -2391,6 +2454,7 @@
       wrap.classList.toggle('invalid', !valid && field.dataset.touched === 'true');
       return valid;
     }
+
     fields.forEach(field => {
       field.addEventListener('blur', () => { field.dataset.touched = 'true'; validateField(field); });
       field.addEventListener('input', () => {
@@ -2398,42 +2462,212 @@
           let digits = field.value.replace(/\D/g, '').slice(0, 11);
           field.value = digits.replace(/(\d{4})(\d{3})(\d{0,4})/, (_, a, b, c) => c ? `${a} ${b} ${c}` : b ? `${a} ${b}` : a);
         }
-        const data = Object.fromEntries(new FormData(form).entries());
-        sessionStorage.setItem('yorCheckout', JSON.stringify(data));
+        sessionStorage.setItem('yorCheckout', JSON.stringify(Object.fromEntries(new FormData(form).entries())));
         validateField(field);
       });
     });
 
-    document.querySelectorAll('input[name="payment"]').forEach(input => input.addEventListener('change', () => {
-      document.querySelectorAll('.payment-card').forEach(card => card.className = 'payment-card cursor-pointer rounded-2xl border border-slate-200 bg-white p-4 shadow-sm');
-      input.closest('.payment-card').className = 'payment-card cursor-pointer rounded-2xl border border-orange-400 bg-orange-50 p-4 shadow-sm';
-    }));
+    async function fetchCsrfToken() {
+      if (paymentState.csrfToken) return paymentState.csrfToken;
+      const response = await fetch('/api/csrf.php', {
+        credentials: 'same-origin',
+        headers: { 'Accept': 'application/json' },
+      });
+      if (!response.ok) {
+        throw new Error('Unable to start a secure checkout session.');
+      }
+      const data = await response.json();
+      paymentState.csrfToken = data.csrf_token || '';
+      return paymentState.csrfToken;
+    }
 
-    form.addEventListener('submit', event => {
+    function fillSuccessSummary(summary) {
+      document.getElementById('orderRef').textContent = summary.reference_id || paymentState.orderReference || 'YOR-000000';
+      document.getElementById('successName').textContent = summary.customer_name || form.elements.name?.value || 'Customer';
+      document.getElementById('successAddress').textContent = summary.address || form.elements.address?.value || 'Address';
+      document.getElementById('successPlan').textContent = summary.plan_label || plans[state.selected].label;
+      const quantity = Number(summary.quantity || state.qty || 1);
+      document.getElementById('successQty').textContent = `${quantity} bottle${quantity === 1 ? '' : 's'}`;
+      document.getElementById('successPayment').textContent = summary.payment_method || paymentLabel(summary.payment_type);
+      document.getElementById('successTotal').textContent = peso(Number(summary.total || state.total || 0));
+      paymentState.orderReference = summary.reference_id || paymentState.orderReference;
+    }
+
+    function renderOrderStatus(summary) {
+      const status = summary.status || 'pending_payment';
+      fillSuccessSummary(summary);
+      retryPaymentBtn.classList.add('hidden');
+      retryPaymentBtn.classList.remove('inline-flex');
+      stopOrderPolling();
+
+      if (status === 'paid') {
+        successTitle.textContent = 'Your Online Payment Is Confirmed';
+        successMessage.textContent = 'Thank you. Your secure online payment was received and your YOR VISION order is now confirmed.';
+        setStatusBadge('Payment received', true);
+      } else if (status === 'pending_payment') {
+        successTitle.textContent = 'Your Payment Is Being Verified';
+        successMessage.textContent = 'Your checkout was created successfully. We are waiting for the payment result from Xendit and will keep this order reference ready for you.';
+        setStatusBadge('Waiting for payment confirmation', true);
+        paymentState.pollHandle = setTimeout(() => loadOrderStatus(paymentState.orderReference, true), 5000);
+      } else if (status === 'failed') {
+        successTitle.textContent = 'Your Online Payment Was Not Completed';
+        successMessage.textContent = 'Your order is saved, but the payment did not go through. You can retry the secure checkout using the same order reference.';
+        setStatusBadge('Payment failed', true);
+        retryPaymentBtn.classList.remove('hidden');
+        retryPaymentBtn.classList.add('inline-flex');
+      } else if (status === 'expired') {
+        successTitle.textContent = 'Your Payment Link Has Expired';
+        successMessage.textContent = 'Your order is still saved. Please reopen the secure checkout to generate a fresh payment link and continue your purchase.';
+        setStatusBadge('Payment session expired', true);
+        retryPaymentBtn.classList.remove('hidden');
+        retryPaymentBtn.classList.add('inline-flex');
+      } else {
+        successTitle.textContent = 'Your Cash on Delivery Order Is Confirmed';
+        successMessage.textContent = 'Thank you. Your delivery details are saved and your order will continue through the Cash on Delivery flow.';
+        setStatusBadge('Cash on Delivery selected', true);
+      }
+
+      setStage('complete');
+    }
+
+    async function loadOrderStatus(referenceId, quiet = false) {
+      if (!referenceId) return null;
+      try {
+        const response = await fetch(`/api/order-status.php?reference=${encodeURIComponent(referenceId)}`, {
+          credentials: 'same-origin',
+          headers: { 'Accept': 'application/json' },
+        });
+        if (!response.ok) {
+          throw new Error('Unable to load order status.');
+        }
+        const summary = await response.json();
+        renderOrderStatus(summary);
+        return summary;
+      } catch (error) {
+        if (!quiet) {
+          setStatusBadge('We could not refresh the order status yet.', true);
+        }
+        return null;
+      }
+    }
+
+    async function submitCheckout() {
+      const payload = serializeCheckoutForm();
+      const csrfToken = await fetchCsrfToken();
+      const response = await fetch('/api/checkout.php', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': csrfToken,
+        },
+        body: JSON.stringify({ ...payload, csrf_token: csrfToken }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(data.message || 'Unable to submit your order right now.');
+      }
+
+      return data;
+    }
+
+    async function retryOnlinePayment(referenceId) {
+      const csrfToken = await fetchCsrfToken();
+      const response = await fetch('/api/retry-payment.php', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': csrfToken,
+        },
+        body: JSON.stringify({
+          reference_id: referenceId,
+          csrf_token: csrfToken,
+        }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(data.message || 'Unable to regenerate the payment link.');
+      }
+
+      return data;
+    }
+
+    document.querySelectorAll('input[name="payment"]').forEach(input => input.addEventListener('change', syncPaymentCardState));
+
+    form.addEventListener('submit', async event => {
       event.preventDefault();
       fields.forEach(field => field.dataset.touched = 'true');
       if (!fields.every(validateField)) return;
-      const btn = document.getElementById('placeOrderBtn');
-      btn.disabled = true;
-      btn.querySelector('.btn-label').textContent = 'Processing Order...';
-      setTimeout(() => {
-        const data = Object.fromEntries(new FormData(form).entries());
-        document.getElementById('orderRef').textContent = 'YOR-' + Math.floor(100000 + Math.random() * 900000);
-        document.getElementById('successName').textContent = data.name;
-        document.getElementById('successAddress').textContent = data.address;
-        document.getElementById('successPlan').textContent = plans[state.selected].label;
-        document.getElementById('successQty').textContent = `${state.qty} bottle${state.qty === 1 ? '' : 's'}`;
-        document.getElementById('successPayment').textContent = data.payment || 'Cash on Delivery';
-        document.getElementById('successTotal').textContent = peso(state.total);
-        btn.disabled = false;
-        btn.querySelector('.btn-label').textContent = 'Complete My Order';
-        setStage('complete');
-      }, 850);
+
+      const isOnlinePayment = selectedPaymentMethod() === 'xendit';
+      setSubmitButtonState(isOnlinePayment ? 'Preparing Secure Payment...' : 'Saving Order...', true);
+
+      try {
+        const result = await submitCheckout();
+        paymentState.orderReference = result.reference_id || paymentState.orderReference;
+
+        if (result.status === 'cod_pending' && result.order) {
+          renderOrderStatus({
+            reference_id: result.order.reference_id,
+            status: 'cod_pending',
+            payment_type: 'cod',
+            customer_name: result.order.name,
+            address: result.order.address,
+            plan_label: result.order.plan,
+            quantity: result.order.quantity,
+            total: result.order.total,
+            payment_method: result.order.payment,
+          });
+        } else if (result.checkout_url) {
+          window.location.href = result.checkout_url;
+          return;
+        } else {
+          throw new Error('Missing checkout redirect URL.');
+        }
+      } catch (error) {
+        alert(error.message || 'Unable to continue with checkout right now.');
+      } finally {
+        syncPaymentCardState();
+        placeOrderBtn.disabled = false;
+      }
+    });
+
+    retryPaymentBtn.addEventListener('click', async () => {
+      if (!paymentState.orderReference) return;
+      retryPaymentBtn.disabled = true;
+      retryPaymentBtn.querySelector('span').textContent = 'Preparing Payment Link...';
+
+      try {
+        const result = await retryOnlinePayment(paymentState.orderReference);
+        if (result.checkout_url) {
+          window.location.href = result.checkout_url;
+          return;
+        }
+        throw new Error('Missing retry checkout URL.');
+      } catch (error) {
+        alert(error.message || 'Unable to retry payment right now.');
+      } finally {
+        retryPaymentBtn.disabled = false;
+        retryPaymentBtn.querySelector('span').textContent = 'Retry Secure Payment';
+      }
     });
 
     updateOrder(state.selected);
+    syncPaymentCardState();
     loadTestimonials();
     loadFaqs();
+    fetchCsrfToken().catch(() => null);
+
+    const returnOrderReference = new URLSearchParams(window.location.search).get('order_ref');
+    if (returnOrderReference) {
+      paymentState.orderReference = returnOrderReference;
+      loadOrderStatus(returnOrderReference);
+    }
   </script>
 </body>
 </html>

@@ -1,0 +1,11 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^includes/ - [F,L]
+    RewriteRule \.(sqlite|db|log|env|ini|sql|bak)$ - [F,L,NC]
+</IfModule>
+
+<FilesMatch "^(.*)\.(sqlite|db|log|env|ini|sql|bak)$">
+    Require all denied
+</FilesMatch>
