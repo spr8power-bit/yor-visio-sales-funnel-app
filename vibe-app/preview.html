@@ -937,6 +937,47 @@
     .hero-payment-strip .payment-brand-pill.qrph img {
       height: .96rem;
     }
+    .summary-payment-strip {
+      width: 100%;
+      margin-top: 1rem;
+      border-radius: 1.3rem;
+      padding: .85rem .8rem .95rem;
+    }
+    .summary-payment-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: .42rem;
+      align-items: center;
+    }
+    .summary-payment-strip .payment-brand-pill {
+      min-height: 2.3rem;
+      border-radius: .9rem;
+      padding: .35rem .35rem;
+      box-shadow: 0 6px 16px rgba(11,31,51,.04);
+    }
+    .summary-payment-strip .payment-brand-pill.mastercard img {
+      height: .88rem;
+    }
+    .summary-payment-strip .payment-brand-pill.visa img {
+      height: .74rem;
+    }
+    .summary-payment-strip .payment-brand-pill.maya img {
+      height: .82rem;
+    }
+    .summary-payment-strip .payment-brand-pill.gcash img {
+      height: .8rem;
+    }
+    .summary-payment-strip .payment-brand-pill.qrph img {
+      height: .78rem;
+    }
+    .summary-payment-note {
+      margin-top: .6rem;
+      text-align: center;
+      color: #64748b;
+      font-size: .75rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
     .payment-brand-pill {
       display: inline-flex;
       align-items: center;
@@ -1213,6 +1254,35 @@
       }
       .hero-payment-strip .payment-brand-pill.qrph img {
         height: .78rem;
+      }
+      .summary-payment-strip {
+        margin-top: .9rem;
+        padding: .8rem .7rem .9rem;
+      }
+      .summary-payment-grid {
+        gap: .34rem;
+      }
+      .summary-payment-strip .payment-brand-pill {
+        min-height: 2.15rem;
+        padding: .32rem .25rem;
+      }
+      .summary-payment-strip .payment-brand-pill.mastercard img {
+        height: .82rem;
+      }
+      .summary-payment-strip .payment-brand-pill.visa img {
+        height: .68rem;
+      }
+      .summary-payment-strip .payment-brand-pill.maya img {
+        height: .76rem;
+      }
+      .summary-payment-strip .payment-brand-pill.gcash img {
+        height: .74rem;
+      }
+      .summary-payment-strip .payment-brand-pill.qrph img {
+        height: .72rem;
+      }
+      .summary-payment-note {
+        font-size: .72rem;
       }
       .scene-card { min-height: 28rem; }
       .product-bottle { width: 7.6rem; height: 17.5rem; }
@@ -1590,6 +1660,27 @@
                 Continue to Secure Checkout <span class="arrow">→</span>
               </button>
             </div>
+          </div>
+          <div class="summary-payment-strip payment-brand-strip" aria-label="Supported secure payment channels for order summary">
+            <p class="mb-3 text-center text-[10px] font-black uppercase tracking-[.18em] text-slate-500">Secured Payment Channels</p>
+            <div class="summary-payment-grid">
+              <div class="payment-brand-pill mastercard">
+                <img src="/images/yor-vision/payments/mastercard.png" alt="Mastercard secure payment channel" loading="lazy">
+              </div>
+              <div class="payment-brand-pill visa">
+                <img src="/images/yor-vision/payments/visa.png" alt="Visa secure payment channel" loading="lazy">
+              </div>
+              <div class="payment-brand-pill maya">
+                <img src="/images/yor-vision/payments/maya.png" alt="Maya secure payment channel" loading="lazy">
+              </div>
+              <div class="payment-brand-pill gcash">
+                <img src="/images/yor-vision/payments/gcash.png" alt="GCash secure payment channel" loading="lazy">
+              </div>
+              <div class="payment-brand-pill qrph">
+                <img src="/images/yor-vision/payments/qrph.png" alt="QR Ph secure payment channel" loading="lazy">
+              </div>
+            </div>
+            <p class="summary-payment-note">Secure online checkout with trusted Philippine payment options.</p>
           </div>
         </div>
       </section>
