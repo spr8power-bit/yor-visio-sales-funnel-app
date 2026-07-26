@@ -739,12 +739,12 @@
       object-fit: contain;
     }
     .faq-section {
-      padding-block: clamp(72px, 8vw, 120px);
+      padding-block: clamp(56px, 7vw, 96px);
     }
     .faq-shell {
       display: grid;
-      grid-template-columns: minmax(260px, .75fr) minmax(0, 1.5fr);
-      gap: clamp(48px, 6vw, 96px);
+      grid-template-columns: minmax(250px, .7fr) minmax(0, 1.45fr);
+      gap: clamp(32px, 5vw, 72px);
       align-items: start;
     }
     .faq-side {
@@ -793,18 +793,18 @@
       box-shadow: 0 12px 30px rgba(255,105,0,.18);
     }
     .faq-category-title {
-      margin: 1.8rem 0 .8rem;
+      margin: 1.1rem 0 .6rem;
       color: #B54708;
-      font-size: .78rem;
+      font-size: .72rem;
       font-weight: 900;
       letter-spacing: .18em;
       text-transform: uppercase;
     }
     .faq-item {
-      margin-bottom: .9rem;
+      margin-bottom: .65rem;
       overflow: hidden;
       border: 1px solid rgba(11,31,51,.10);
-      border-radius: 1rem;
+      border-radius: 1.15rem;
       background: rgba(255,255,255,.94);
       box-shadow: 0 6px 24px rgba(11,31,51,.05);
       transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
@@ -822,13 +822,13 @@
     .faq-question {
       display: grid;
       width: 100%;
-      min-height: 4.8rem;
-      grid-template-columns: auto 1fr;
-      gap: 1rem;
+      min-height: 4.25rem;
+      grid-template-columns: auto 1fr auto;
+      gap: .85rem;
       align-items: center;
-      padding: 1.35rem 1.5rem;
+      padding: 1rem 1.15rem;
       text-align: left;
-      cursor: default;
+      cursor: pointer;
     }
     .faq-question:focus-visible {
       outline: 4px solid rgba(255,105,0,.22);
@@ -836,14 +836,14 @@
     }
     .faq-number {
       display: grid;
-      width: 2.6rem;
-      min-width: 2.6rem;
-      height: 2.2rem;
+      width: 2rem;
+      min-width: 2rem;
+      height: 2rem;
       place-items: center;
-      border-radius: .85rem;
+      border-radius: .75rem;
       background: #FFF3E8;
       color: #B54708;
-      font-size: .78rem;
+      font-size: .68rem;
       font-weight: 900;
     }
     .faq-item.active .faq-number {
@@ -852,20 +852,20 @@
     }
     .faq-title {
       color: #0B1F33;
-      font-size: clamp(1rem, 1.35vw, 1.18rem);
+      font-size: clamp(.96rem, 1.1vw, 1.08rem);
       font-weight: 900;
-      line-height: 1.35;
+      line-height: 1.3;
     }
     .faq-icon {
-      display: none;
-      width: 2.75rem;
-      min-width: 2.75rem;
-      height: 2.75rem;
+      display: grid;
+      width: 2.15rem;
+      min-width: 2.15rem;
+      height: 2.15rem;
       place-items: center;
       border-radius: 999px;
       background: #F8FAFC;
       color: #0B1F33;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       font-weight: 900;
       transition: rotate .2s ease, color .2s ease, background .2s ease;
     }
@@ -875,15 +875,15 @@
       rotate: 180deg;
     }
     .faq-answer {
-      max-height: none;
+      max-height: 0;
       overflow: hidden;
       transition: max-height .28s ease;
     }
     .faq-answer-inner {
-      padding: 0 1.5rem 1.5rem calc(1.5rem + 3.6rem);
+      padding: 0 1.15rem 1.15rem calc(1.15rem + 2.85rem);
       color: #4A5F73;
-      font-size: 1rem;
-      line-height: 1.75;
+      font-size: .95rem;
+      line-height: 1.65;
     }
     .faq-empty {
       border: 1px dashed rgba(255,105,0,.3);
@@ -2296,12 +2296,14 @@
 
     function faqItemMarkup(item) {
       const number = faqNumber(item.id);
+      const isOpen = String(faqState.openId) === String(item.id);
       return `
-        <article class="faq-item active" data-faq-item="${item.id}" data-faq-category="${escapeHtml(item.category)}">
-          <div class="faq-question" id="faq-button-${item.id}">
+        <article class="faq-item ${isOpen ? 'active' : ''}" data-faq-item="${item.id}" data-faq-category="${escapeHtml(item.category)}">
+          <button type="button" class="faq-question" id="faq-button-${item.id}" aria-expanded="${String(isOpen)}" aria-controls="faq-panel-${item.id}">
             <span class="faq-number">${number}</span>
             <span class="faq-title">${escapeHtml(item.question)}</span>
-          </div>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
           <div class="faq-answer" id="faq-panel-${item.id}" role="region" aria-labelledby="faq-button-${item.id}">
             <div class="faq-answer-inner">${escapeHtml(item.answer)}</div>
           </div>
@@ -2313,11 +2315,26 @@
       document.querySelectorAll('.faq-item').forEach(item => {
         const panel = item.querySelector('.faq-answer');
         if (!panel) return;
-        panel.style.maxHeight = `${panel.scrollHeight}px`;
+        panel.style.maxHeight = item.classList.contains('active') ? `${panel.scrollHeight}px` : '0px';
       });
     }
 
     function wireFaqToggles() {
+      document.querySelectorAll('.faq-question').forEach(button => {
+        button.addEventListener('click', () => {
+          const item = button.closest('.faq-item');
+          const id = item?.dataset.faqItem;
+          faqState.openId = String(faqState.openId) === String(id) ? null : id;
+          document.querySelectorAll('.faq-item').forEach(faqItem => {
+            const isActive = String(faqItem.dataset.faqItem) === String(faqState.openId);
+            faqItem.classList.toggle('active', isActive);
+            faqItem.querySelector('.faq-question')?.setAttribute('aria-expanded', String(isActive));
+            const icon = faqItem.querySelector('.faq-icon');
+            if (icon) icon.textContent = isActive ? '−' : '+';
+          });
+          setFaqPanelHeights();
+        });
+      });
       setFaqPanelHeights();
     }
 
@@ -2379,7 +2396,7 @@
         faqState.all = (data.faqs || []).slice(0, 20);
         faqState.categories = data.categories || [...new Set(faqState.all.map(item => item.category))];
         faqState.schemaEnabled = data.schemaEnabled === true;
-        faqState.openId = matchMedia('(min-width: 768px)').matches ? faqState.all[0]?.id || null : null;
+        faqState.openId = null;
         renderFaqTrustBox(data);
         renderFaqs();
         renderFaqSchema();
