@@ -904,6 +904,39 @@
       background: rgba(255,255,255,.96);
       box-shadow: 0 10px 30px rgba(11,31,51,.05);
     }
+    .hero-payment-strip {
+      width: min(100%, 34rem);
+      margin: 1.15rem auto 0;
+      border-radius: 1.5rem;
+      padding: .9rem 1rem 1rem;
+    }
+    .hero-payment-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: .55rem;
+      align-items: center;
+    }
+    .hero-payment-strip .payment-brand-pill {
+      min-height: 2.75rem;
+      border-radius: .95rem;
+      padding: .55rem .7rem;
+      box-shadow: 0 6px 16px rgba(11,31,51,.04);
+    }
+    .hero-payment-strip .payment-brand-pill.mastercard img {
+      height: 1.15rem;
+    }
+    .hero-payment-strip .payment-brand-pill.visa img {
+      height: .95rem;
+    }
+    .hero-payment-strip .payment-brand-pill.maya img {
+      height: 1.05rem;
+    }
+    .hero-payment-strip .payment-brand-pill.gcash img {
+      height: 1rem;
+    }
+    .hero-payment-strip .payment-brand-pill.qrph img {
+      height: .96rem;
+    }
     .payment-brand-pill {
       display: inline-flex;
       align-items: center;
@@ -1154,6 +1187,33 @@
       .hero-actions > * {
         width: 100%;
       }
+      .hero-payment-strip {
+        width: 100%;
+        margin-top: 1rem;
+        padding: .85rem .75rem .95rem;
+      }
+      .hero-payment-grid {
+        gap: .38rem;
+      }
+      .hero-payment-strip .payment-brand-pill {
+        min-height: 2.35rem;
+        padding: .35rem .3rem;
+      }
+      .hero-payment-strip .payment-brand-pill.mastercard img {
+        height: .88rem;
+      }
+      .hero-payment-strip .payment-brand-pill.visa img {
+        height: .75rem;
+      }
+      .hero-payment-strip .payment-brand-pill.maya img {
+        height: .82rem;
+      }
+      .hero-payment-strip .payment-brand-pill.gcash img {
+        height: .8rem;
+      }
+      .hero-payment-strip .payment-brand-pill.qrph img {
+        height: .78rem;
+      }
       .scene-card { min-height: 28rem; }
       .product-bottle { width: 7.6rem; height: 17.5rem; }
       .phone-card { right: .4rem; bottom: 1rem; width: 9.2rem; }
@@ -1366,6 +1426,26 @@
             <button type="button" class="inline-flex min-h-[54px] w-full items-center justify-center rounded-[18px] border border-slate-200 bg-white/80 px-8 py-4 font-extrabold text-[#0B1F33] shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg sm:w-auto" data-scroll="#inside">
               View Available Packages
             </button>
+          </div>
+          <div class="hero-payment-strip payment-brand-strip reveal" aria-label="Supported secure payment channels">
+            <p class="mb-3 text-center text-[11px] font-black uppercase tracking-[.18em] text-slate-500">Secured Payment Channels</p>
+            <div class="hero-payment-grid">
+              <div class="payment-brand-pill mastercard">
+                <img src="/images/yor-vision/payments/mastercard.png" alt="Mastercard secure payment channel" loading="lazy">
+              </div>
+              <div class="payment-brand-pill visa">
+                <img src="/images/yor-vision/payments/visa.png" alt="Visa secure payment channel" loading="lazy">
+              </div>
+              <div class="payment-brand-pill maya">
+                <img src="/images/yor-vision/payments/maya.png" alt="Maya secure payment channel" loading="lazy">
+              </div>
+              <div class="payment-brand-pill gcash">
+                <img src="/images/yor-vision/payments/gcash.png" alt="GCash secure payment channel" loading="lazy">
+              </div>
+              <div class="payment-brand-pill qrph">
+                <img src="/images/yor-vision/payments/qrph.png" alt="QR Ph secure payment channel" loading="lazy">
+              </div>
+            </div>
           </div>
           <div class="hero-proof flex flex-wrap items-center gap-4">
             <p class="max-w-xl text-sm font-semibold leading-6 text-slate-600">Clear pricing · Carefully packed · Nationwide delivery · Responsive customer support</p>
