@@ -929,7 +929,7 @@
       height: 1.15rem;
     }
     .payment-brand-pill.maya img {
-      height: 1.05rem;
+      height: 1.45rem;
     }
     .payment-brand-pill.gcash img {
       height: 1.35rem;
@@ -945,18 +945,49 @@
       overflow-wrap: anywhere;
     }
     .privacy-check {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1.3rem minmax(0, 1fr);
       gap: .85rem;
       align-items: flex-start;
       border-top: 1px solid rgba(11,31,51,.08);
       padding-top: 1rem;
     }
     .privacy-check input[type="checkbox"] {
-      margin-top: .2rem;
-      width: 1.1rem;
-      height: 1.1rem;
-      accent-color: #FF6900;
-      flex: 0 0 auto;
+      appearance: none;
+      -webkit-appearance: none;
+      margin-top: .14rem;
+      width: 1.3rem;
+      height: 1.3rem;
+      border: 2px solid rgba(148, 163, 184, .9);
+      border-radius: .42rem;
+      background: white;
+      display: grid;
+      place-items: center;
+      box-shadow: inset 0 1px 2px rgba(11,31,51,.06);
+      cursor: pointer;
+      transition: border-color .18s ease, background .18s ease, box-shadow .18s ease, transform .18s ease;
+    }
+    .privacy-check input[type="checkbox"]::after {
+      content: "";
+      width: .36rem;
+      height: .7rem;
+      border: solid white;
+      border-width: 0 .16rem .16rem 0;
+      transform: rotate(45deg) scale(0);
+      transform-origin: center;
+      transition: transform .16s ease;
+    }
+    .privacy-check input[type="checkbox"]:checked {
+      border-color: #FF6900;
+      background: #FF6900;
+      box-shadow: 0 8px 18px rgba(255,105,0,.2);
+    }
+    .privacy-check input[type="checkbox"]:checked::after {
+      transform: rotate(45deg) scale(1);
+    }
+    .privacy-check input[type="checkbox"]:focus-visible {
+      outline: 3px solid rgba(255,105,0,.2);
+      outline-offset: 2px;
     }
     .privacy-check label {
       color: #0B1F33;
@@ -966,10 +997,18 @@
       cursor: pointer;
     }
     .field-checkbox {
-      min-height: 1.4rem;
+      position: static;
+      min-height: 0;
+    }
+    .field-checkbox.valid::after {
+      content: none;
     }
     .field-checkbox.invalid .privacy-check {
       border-color: rgba(190, 18, 60, .25);
+    }
+    .field-checkbox.invalid .privacy-check input[type="checkbox"] {
+      border-color: rgba(190, 18, 60, .75);
+      box-shadow: 0 0 0 4px rgba(190,18,60,.08);
     }
     .field-checkbox .error-text {
       margin-top: .75rem;
@@ -1170,7 +1209,7 @@
         height: 1rem;
       }
       .payment-brand-pill.maya img {
-        height: .95rem;
+        height: 1.2rem;
       }
       .payment-brand-pill.gcash img {
         height: 1.12rem;
@@ -1185,6 +1224,19 @@
         scrollbar-width: none;
       }
       .faq-filters::-webkit-scrollbar { display: none; }
+      .privacy-check {
+        grid-template-columns: 1.15rem minmax(0, 1fr);
+        gap: .75rem;
+      }
+      .privacy-check input[type="checkbox"] {
+        width: 1.15rem;
+        height: 1.15rem;
+        margin-top: .18rem;
+      }
+      .privacy-check label {
+        font-size: .88rem;
+        line-height: 1.55;
+      }
     }
 
     @media (max-width: 389px) {
@@ -1834,7 +1886,7 @@
                       <img src="/images/yor-vision/payments/visa.png" alt="Visa payment option" loading="lazy">
                     </div>
                     <div class="payment-brand-pill maya">
-                      <img src="/images/yor-vision/payments/maya.jpg" alt="Maya payment option" loading="lazy">
+                      <img src="/images/yor-vision/payments/maya.png" alt="Maya payment option" loading="lazy">
                     </div>
                     <div class="payment-brand-pill gcash">
                       <img src="/images/yor-vision/payments/gcash.png" alt="GCash payment option" loading="lazy">
