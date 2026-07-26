@@ -889,6 +889,53 @@
       border: 1px dashed rgba(255,105,0,.3);
       background: rgba(255,247,239,.72);
     }
+    .privacy-notice {
+      border: 1px solid rgba(255, 105, 0, .22);
+      background: linear-gradient(180deg, rgba(255,247,239,.92), rgba(255,255,255,.98));
+      box-shadow: 0 18px 44px rgba(11,31,51,.06);
+    }
+    .privacy-notice p {
+      color: #334155;
+      font-size: .975rem;
+      line-height: 1.75;
+    }
+    .privacy-notice a {
+      color: #0B63CE;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      overflow-wrap: anywhere;
+    }
+    .privacy-check {
+      display: flex;
+      gap: .85rem;
+      align-items: flex-start;
+      border-top: 1px solid rgba(11,31,51,.08);
+      padding-top: 1rem;
+    }
+    .privacy-check input[type="checkbox"] {
+      margin-top: .2rem;
+      width: 1.1rem;
+      height: 1.1rem;
+      accent-color: #FF6900;
+      flex: 0 0 auto;
+    }
+    .privacy-check label {
+      color: #0B1F33;
+      font-size: .95rem;
+      font-weight: 700;
+      line-height: 1.6;
+      cursor: pointer;
+    }
+    .field-checkbox {
+      min-height: 1.4rem;
+    }
+    .field-checkbox.invalid .privacy-check {
+      border-color: rgba(190, 18, 60, .25);
+    }
+    .field-checkbox .error-text {
+      margin-top: .75rem;
+    }
     .trust-box {
       border: 1px solid rgba(255,105,0,.22);
       background: linear-gradient(135deg, rgba(255,247,239,.96), rgba(255,255,255,.9));
@@ -1691,6 +1738,27 @@
               <div class="field"><label for="notes">Delivery notes</label><input id="notes" name="notes" placeholder="Optional"><p class="error-text"></p></div>
             </div>
 
+            <div class="privacy-notice mt-8 rounded-[1.75rem] p-5 sm:p-6">
+              <p class="text-xs font-black uppercase tracking-[.2em] text-[#B54708]">Philippine Data Privacy Act of 2012</p>
+              <h3 class="mt-2 text-xl font-black text-[#0B1F33] sm:text-2xl">Republic Act No. 10173</h3>
+              <div class="mt-4 space-y-4">
+                <p>We will not collect your personal information or email address without your permission.</p>
+                <p>We are committed to comply with the Philippine Data Privacy Act of 2012 or RA 10173 in handling your data with confidentiality and care. You entrust your data with us, and we will do our best to keep your information confidential.</p>
+                <p>This law empowers you to know how your data is used and helps ensure that it will not be shared or disclosed without your consent, in line with your rights to privacy and data protection.</p>
+                <div class="rounded-2xl bg-white/80 px-4 py-3 text-sm font-semibold leading-6 text-slate-600">
+                  External link:
+                  <a href="https://privacy.gov.ph/data-privacy-act/" target="_blank" rel="noopener noreferrer">https://privacy.gov.ph/data-privacy-act/</a>
+                </div>
+              </div>
+              <div class="field field-checkbox mt-5">
+                <div class="privacy-check">
+                  <input id="privacyConsent" name="privacy_consent" type="checkbox" value="agree" required>
+                  <label for="privacyConsent">I agree and understand how my submitted information will be handled for order processing in line with the Philippine Data Privacy Act of 2012 or RA 10173.</label>
+                </div>
+                <p class="error-text">Please confirm the privacy notice before continuing.</p>
+              </div>
+            </div>
+
             <div class="mt-8">
               <h3 class="text-lg font-black">Payment Method</h3>
               <div class="mt-4 grid gap-4">
@@ -2438,7 +2506,14 @@
       pollHandle: null,
     };
 
-    Object.entries(saved).forEach(([key, value]) => { if (form.elements[key]) form.elements[key].value = value; });
+    Object.entries(saved).forEach(([key, value]) => {
+      if (!form.elements[key]) return;
+      if (form.elements[key].type === 'checkbox') {
+        form.elements[key].checked = value === 'agree' || value === true || value === 'on';
+        return;
+      }
+      form.elements[key].value = value;
+    });
 
     function selectedPaymentMethod() {
       return form.querySelector('input[name="payment"]:checked')?.value || 'cod';
@@ -2489,19 +2564,24 @@
       let valid = field.checkValidity();
       if (field.id === 'phone') valid = /^09\d{2}\s?\d{3}\s?\d{4}$/.test(field.value.trim());
       const wrap = field.closest('.field');
-      wrap.classList.toggle('valid', valid && field.value.trim().length > 0);
+      const hasValue = field.type === 'checkbox' ? field.checked : field.value.trim().length > 0;
+      wrap.classList.toggle('valid', valid && hasValue);
       wrap.classList.toggle('invalid', !valid && field.dataset.touched === 'true');
       return valid;
     }
 
     fields.forEach(field => {
-      field.addEventListener('blur', () => { field.dataset.touched = 'true'; validateField(field); });
-      field.addEventListener('input', () => {
+      if (field.type !== 'checkbox') {
+        field.addEventListener('blur', () => { field.dataset.touched = 'true'; validateField(field); });
+      }
+      const eventName = field.type === 'checkbox' || field.tagName === 'SELECT' ? 'change' : 'input';
+      field.addEventListener(eventName, () => {
         if (field.id === 'phone') {
           let digits = field.value.replace(/\D/g, '').slice(0, 11);
           field.value = digits.replace(/(\d{4})(\d{3})(\d{0,4})/, (_, a, b, c) => c ? `${a} ${b} ${c}` : b ? `${a} ${b}` : a);
         }
         sessionStorage.setItem('yorCheckout', JSON.stringify(Object.fromEntries(new FormData(form).entries())));
+        if (field.type === 'checkbox') field.dataset.touched = 'true';
         validateField(field);
       });
     });
