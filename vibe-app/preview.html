@@ -899,6 +899,44 @@
       font-size: .975rem;
       line-height: 1.75;
     }
+    .payment-brand-strip {
+      border: 1px solid rgba(11,31,51,.10);
+      background: rgba(255,255,255,.96);
+      box-shadow: 0 10px 30px rgba(11,31,51,.05);
+    }
+    .payment-brand-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 3rem;
+      min-width: 0;
+      border-radius: 1rem;
+      border: 1px solid rgba(11,31,51,.08);
+      background: white;
+      padding: .7rem .95rem;
+      box-shadow: 0 8px 18px rgba(11,31,51,.04);
+    }
+    .payment-brand-pill img {
+      display: block;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+    }
+    .payment-brand-pill.mastercard img {
+      height: 1.5rem;
+    }
+    .payment-brand-pill.visa img {
+      height: 1.15rem;
+    }
+    .payment-brand-pill.maya img {
+      height: 1.05rem;
+    }
+    .payment-brand-pill.gcash img {
+      height: 1.35rem;
+    }
+    .payment-brand-pill.qrph img {
+      height: 1.3rem;
+    }
     .privacy-notice a {
       color: #0B63CE;
       font-weight: 700;
@@ -1120,6 +1158,25 @@
       }
       .faq-title {
         font-size: 1rem;
+      }
+      .payment-brand-pill {
+        min-height: 2.85rem;
+        padding: .6rem .8rem;
+      }
+      .payment-brand-pill.mastercard img {
+        height: 1.3rem;
+      }
+      .payment-brand-pill.visa img {
+        height: 1rem;
+      }
+      .payment-brand-pill.maya img {
+        height: .95rem;
+      }
+      .payment-brand-pill.gcash img {
+        height: 1.12rem;
+      }
+      .payment-brand-pill.qrph img {
+        height: 1.1rem;
       }
       .faq-filters {
         display: flex;
@@ -1767,6 +1824,26 @@
                   <span class="block font-black text-[#0B1F33]">Secure Online Payment</span>
                   <span class="text-sm text-slate-600">Pay using cards, e-wallets, OTC, and other supported Philippine payment methods.</span>
                 </label>
+                <div class="payment-brand-strip rounded-[1.4rem] px-3 py-3 sm:px-4" aria-label="Supported online payment channels">
+                  <p class="mb-3 text-center text-[11px] font-black uppercase tracking-[.18em] text-slate-500">Supported Payment Channels</p>
+                  <div class="grid grid-cols-2 gap-2 sm:grid-cols-5">
+                    <div class="payment-brand-pill mastercard">
+                      <img src="/images/yor-vision/payments/mastercard.png" alt="Mastercard payment option" loading="lazy">
+                    </div>
+                    <div class="payment-brand-pill visa">
+                      <img src="/images/yor-vision/payments/visa.png" alt="Visa payment option" loading="lazy">
+                    </div>
+                    <div class="payment-brand-pill maya">
+                      <img src="/images/yor-vision/payments/maya.jpg" alt="Maya payment option" loading="lazy">
+                    </div>
+                    <div class="payment-brand-pill gcash">
+                      <img src="/images/yor-vision/payments/gcash.png" alt="GCash payment option" loading="lazy">
+                    </div>
+                    <div class="payment-brand-pill qrph">
+                      <img src="/images/yor-vision/payments/qrph.png" alt="QR Ph payment option" loading="lazy">
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
