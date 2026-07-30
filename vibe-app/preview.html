@@ -385,6 +385,34 @@
       stroke-linecap: round;
       stroke-linejoin: round;
     }
+    .trust-card {
+      display: flex;
+      min-height: 8.75rem;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .75rem;
+    }
+    .trust-card-icon {
+      width: 3rem;
+      height: 3rem;
+      display: grid;
+      place-items: center;
+      border-radius: 1rem;
+      border: 1px solid rgba(255, 105, 0, .22);
+      background: linear-gradient(180deg, #fff7ef, #fff);
+      color: var(--orange);
+      box-shadow: 0 14px 28px rgba(255, 105, 0, .12);
+    }
+    .trust-card-icon svg {
+      width: 1.55rem;
+      height: 1.55rem;
+      stroke: currentColor;
+      stroke-width: 2.35;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
     .ingredient-card {
       display: grid;
       grid-template-columns: 5.25rem 1fr;
@@ -1849,12 +1877,37 @@
       </section>
 
       <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div class="grid gap-5 md:grid-cols-5">
-          <div class="glass reveal rounded-[1.6rem] p-5 text-center"><strong class="block text-[#0B1F33]">Secure Checkout</strong><span class="text-sm text-slate-500">Encrypted order flow</span></div>
-          <div class="glass reveal rounded-[1.6rem] p-5 text-center"><strong class="block text-[#0B1F33]">Nationwide Delivery</strong><span class="text-sm text-slate-500">Subject to courier coverage</span></div>
-          <div class="glass reveal rounded-[1.6rem] p-5 text-center"><strong class="block text-[#0B1F33]">Customer Support</strong><span class="text-sm text-slate-500">Assistance after ordering</span></div>
-          <div class="glass reveal rounded-[1.6rem] p-5 text-center"><strong class="block text-[#0B1F33]">Quality Checked</strong><span class="text-sm text-slate-500">Packed before dispatch</span></div>
-          <div class="glass reveal rounded-[1.6rem] p-5 text-center"><strong class="block text-[#0B1F33]">Clear Policy</strong><span class="text-sm text-slate-500">Damaged or incorrect orders reviewed</span></div>
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          <div class="trust-card glass reveal rounded-[1.6rem] p-5 text-center">
+            <span class="trust-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path><path d="M12 15v2"></path></svg>
+            </span>
+            <div><strong class="block text-[#0B1F33]">Secure Checkout</strong><span class="text-sm text-slate-500">Encrypted order flow</span></div>
+          </div>
+          <div class="trust-card glass reveal rounded-[1.6rem] p-5 text-center">
+            <span class="trust-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 7h11v9H3z"></path><path d="M14 10h4l3 3v3h-7z"></path><circle cx="7" cy="18" r="2"></circle><circle cx="18" cy="18" r="2"></circle></svg>
+            </span>
+            <div><strong class="block text-[#0B1F33]">Nationwide Delivery</strong><span class="text-sm text-slate-500">Subject to courier coverage</span></div>
+          </div>
+          <div class="trust-card glass reveal rounded-[1.6rem] p-5 text-center">
+            <span class="trust-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 13v-2a8 8 0 0 1 16 0v2"></path><path d="M4 13a2 2 0 0 0 2 2h1v-5H6a2 2 0 0 0-2 2v1z"></path><path d="M20 13a2 2 0 0 1-2 2h-1v-5h1a2 2 0 0 1 2 2v1z"></path><path d="M16 19h-3"></path><path d="M18 15v1a3 3 0 0 1-3 3"></path></svg>
+            </span>
+            <div><strong class="block text-[#0B1F33]">Customer Support</strong><span class="text-sm text-slate-500">Assistance after ordering</span></div>
+          </div>
+          <div class="trust-card glass reveal rounded-[1.6rem] p-5 text-center">
+            <span class="trust-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M21 8 12 3 3 8l9 5 9-5z"></path><path d="M3 8v8l9 5 9-5V8"></path><path d="m9 14 2 2 4-4"></path></svg>
+            </span>
+            <div><strong class="block text-[#0B1F33]">Quality Checked</strong><span class="text-sm text-slate-500">Packed before dispatch</span></div>
+          </div>
+          <div class="trust-card glass reveal rounded-[1.6rem] p-5 text-center">
+            <span class="trust-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"></path><path d="M14 3v5h5"></path><path d="m9 15 2 2 4-5"></path></svg>
+            </span>
+            <div><strong class="block text-[#0B1F33]">Clear Policy</strong><span class="text-sm text-slate-500">Damaged or incorrect orders reviewed</span></div>
+          </div>
         </div>
       </section>
 
