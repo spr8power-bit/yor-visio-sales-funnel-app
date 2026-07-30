@@ -179,18 +179,18 @@
     }
 
     .hero-layout {
-      max-width: 1440px;
-      min-height: calc(100vh - 120px);
+      max-width: 1180px;
+      min-height: auto;
       margin: 0 auto;
-      padding: clamp(2rem, 5vw, 5.75rem) clamp(1.5rem, 6vw, 6rem) 5rem;
+      padding: clamp(3rem, 6vw, 6.5rem) clamp(1.5rem, 6vw, 6rem) 5rem;
       display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(420px, .85fr);
+      grid-template-columns: minmax(0, 1fr);
       align-items: center;
-      gap: clamp(36px, 5vw, 90px);
+      gap: 0;
     }
     .hero-content {
       width: 100%;
-      max-width: 920px;
+      max-width: 980px;
       justify-self: center;
       margin-inline: auto;
       text-align: center;
@@ -204,11 +204,11 @@
     }
     .hero-title {
       color: var(--navy);
-      max-width: 920px;
+      max-width: 980px;
       margin-inline: auto;
-      font-size: clamp(64px, 5.4vw, 96px);
-      line-height: .98;
-      letter-spacing: -.045em;
+      font-size: clamp(64px, 5.1vw, 92px);
+      line-height: 1;
+      letter-spacing: -.035em;
       font-weight: 900;
       text-align: center;
       text-wrap: balance;
@@ -240,113 +240,6 @@
       margin: 1.6rem auto 0;
       justify-content: center;
       text-align: center;
-    }
-
-    .hero-scene {
-      transform-style: preserve-3d;
-      perspective: 1100px;
-    }
-    .scene-card {
-      min-height: 34rem;
-      transform-style: preserve-3d;
-      transition: transform .16s ease-out;
-      overflow: hidden;
-    }
-    .scene-card::after {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: linear-gradient(115deg, transparent 42%, rgba(255,255,255,.58), transparent 56%);
-      transform: translateX(-45%) rotate(12deg);
-      animation: reflection 6s ease-in-out infinite;
-      pointer-events: none;
-    }
-    .product-bottle {
-      position: relative;
-      width: 9.8rem;
-      height: 22rem;
-      margin-inline: auto;
-      border-radius: 2.35rem 2.35rem 2.8rem 2.8rem;
-      background:
-        linear-gradient(90deg, rgba(255,255,255,.9), rgba(255,255,255,.5) 18%, rgba(255,255,255,.92) 42%, rgba(234,246,252,.8) 68%, rgba(11,31,51,.12)),
-        linear-gradient(180deg, #fff 0%, #f3fbff 48%, #e2f5fc 100%);
-      box-shadow: inset 20px 0 34px rgba(255,255,255,.72), inset -18px 0 38px rgba(11,31,51,.1), 0 32px 60px rgba(11,31,51,.18);
-      transform: translateZ(90px) rotate(-6deg);
-      animation: bottleRise 1.15s cubic-bezier(.2, .9, .2, 1.12) both, floatBottle 5.5s ease-in-out 1.2s infinite;
-    }
-    .product-bottle::before {
-      content: "";
-      position: absolute;
-      top: -4.2rem;
-      left: 50%;
-      width: 5.4rem;
-      height: 5rem;
-      transform: translateX(-50%);
-      border-radius: 1.1rem 1.1rem .8rem .8rem;
-      background: linear-gradient(180deg, var(--navy), #153a5b);
-      box-shadow: inset 12px 0 18px rgba(255,255,255,.14), 0 18px 28px rgba(11,31,51,.18);
-    }
-    .product-bottle::after {
-      content: "YOR\\A VISION\\A MINERAL DROPS";
-      white-space: pre;
-      position: absolute;
-      left: 1.1rem;
-      right: 1.1rem;
-      top: 6.4rem;
-      min-height: 8.6rem;
-      border-radius: 1.55rem;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      font-weight: 900;
-      letter-spacing: .08em;
-      line-height: 1.22;
-      color: var(--navy);
-      background: linear-gradient(180deg, rgba(255,243,232,.92), rgba(255,255,255,.9));
-      border: 1px solid rgba(181,71,8,.2);
-    }
-    .phone-card {
-      position: absolute;
-      right: 1.4rem;
-      bottom: 2rem;
-      width: 11rem;
-      border-radius: 2rem;
-      padding: .85rem;
-      background: rgba(11,31,51,.88);
-      color: white;
-      transform: translateZ(35px) rotate(6deg);
-      box-shadow: 0 28px 50px rgba(11,31,51,.24);
-      transition: transform .3s ease;
-    }
-    .phone-card:hover { transform: translateZ(65px) rotate(3deg) translateY(-6px); }
-
-    .leaf, .drop, .particle {
-      position: absolute;
-      pointer-events: none;
-      animation: floatLeaf 7s ease-in-out infinite;
-    }
-    .leaf {
-      width: 4.2rem;
-      height: 1.75rem;
-      border-radius: 100% 0 100% 0;
-      background: linear-gradient(135deg, #76b66a, #1d7c57);
-      box-shadow: inset 8px 0 12px rgba(255,255,255,.22), 0 12px 24px rgba(29,124,87,.18);
-    }
-    .drop {
-      width: 1.4rem;
-      height: 1.9rem;
-      border-radius: 60% 60% 70% 70%;
-      background: radial-gradient(circle at 38% 28%, white 0 12%, rgba(169,226,248,.86) 32%, rgba(74,164,208,.55) 100%);
-      filter: blur(var(--blur, 0));
-      transform: scale(var(--scale, 1));
-    }
-    .particle {
-      width: .45rem;
-      height: .45rem;
-      border-radius: 999px;
-      background: rgba(255, 105, 0, .45);
-      box-shadow: 0 0 20px rgba(255, 105, 0, .26);
-      animation: particleDrift 8s ease-in-out infinite;
     }
 
     .btn-primary {
@@ -1168,11 +1061,6 @@
     @keyframes driftGrid { to { background-position: 90px 90px, -140px 140px; } }
     @keyframes stageIn { from { opacity: 0; transform: translateX(22px) scale(.985); } to { opacity: 1; transform: translateX(0) scale(1); } }
     @keyframes wordUp { to { opacity: 1; transform: translateY(0); } }
-    @keyframes bottleRise { from { opacity: 0; transform: translate3d(0, 90px, 90px) rotate(-18deg); } to { opacity: 1; transform: translate3d(0, 0, 90px) rotate(-6deg); } }
-    @keyframes floatBottle { 0%,100% { translate: 0 0; } 50% { translate: 0 -12px; } }
-    @keyframes floatLeaf { 0%,100% { translate: 0 0; rotate: var(--rot, 0deg); } 50% { translate: 0 -18px; rotate: calc(var(--rot, 0deg) + 8deg); } }
-    @keyframes particleDrift { 0%,100% { translate: 0 0; opacity: .35; } 50% { translate: 18px -28px; opacity: .9; } }
-    @keyframes reflection { 0%,55% { transform: translateX(-55%) rotate(12deg); } 80%,100% { transform: translateX(55%) rotate(12deg); } }
     @keyframes pop { from { transform: scale(.65); opacity: 0; } to { transform: scale(1); opacity: 1; } }
     @keyframes shake { 0%,100% { transform: translateX(0); } 35% { transform: translateX(-4px); } 70% { transform: translateX(4px); } }
     @keyframes draw { to { stroke-dashoffset: 0; } }
@@ -1284,9 +1172,6 @@
       .summary-payment-note {
         font-size: .72rem;
       }
-      .scene-card { min-height: 28rem; }
-      .product-bottle { width: 7.6rem; height: 17.5rem; }
-      .phone-card { right: .4rem; bottom: 1rem; width: 9.2rem; }
       .progress-track { left: 1.4rem; right: 1.4rem; }
       .ingredient-card {
         grid-template-columns: 4.75rem 1fr;
@@ -1386,19 +1271,16 @@
 
     @media (min-width: 768px) and (max-width: 1080px) {
       .hero-layout {
-        grid-template-columns: minmax(0, 1.05fr) minmax(360px, .95fr);
-        gap: clamp(28px, 4vw, 48px);
-        padding-inline: clamp(2rem, 4vw, 4rem);
+        max-width: 1040px;
+        grid-template-columns: minmax(0, 1fr);
+        padding-inline: clamp(2rem, 5vw, 4rem);
       }
       .hero-title {
-        font-size: clamp(52px, 7vw, 72px);
+        font-size: clamp(52px, 7vw, 76px);
         line-height: 1;
       }
       .hero-copy {
         max-width: 680px;
-      }
-      .scene-card {
-        min-height: 31rem;
       }
     }
 
@@ -1410,10 +1292,6 @@
       }
       .hero-content {
         max-width: min(100%, 820px);
-      }
-      .hero-scene {
-        width: min(100%, 720px);
-        margin-inline: auto;
       }
     }
 
@@ -1430,7 +1308,6 @@
         scroll-behavior: auto !important;
         transition-duration: .01ms !important;
       }
-      .scene-card { transform: none !important; }
     }
   </style>
 </head>
@@ -1522,35 +1399,6 @@
           </div>
         </div>
 
-        <div class="hero-scene">
-          <div id="sceneCard" class="scene-card glass relative rounded-[2.5rem] p-8">
-            <div id="spotlight" class="absolute left-1/2 top-1/2 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-200/45 blur-3xl"></div>
-            <div class="drop" style="left:12%; top:18%; --scale:.9; animation-delay:.4s"></div>
-            <div class="drop" style="right:16%; top:24%; --scale:1.18; --blur:.5px; animation-delay:1.2s"></div>
-            <div class="drop" style="left:23%; bottom:22%; --scale:.72; --blur:1px; animation-delay:2s"></div>
-            <div class="leaf" style="left:9%; top:38%; --rot:-22deg; animation-delay:.7s"></div>
-            <div class="leaf" style="right:8%; top:13%; --rot:35deg; animation-delay:1.6s"></div>
-            <div class="leaf" style="right:18%; bottom:19%; --rot:-16deg; animation-delay:2.4s"></div>
-            <div class="particle" style="left:28%; top:12%; animation-delay:.2s"></div>
-            <div class="particle" style="right:26%; top:44%; animation-delay:1.3s"></div>
-            <div class="particle" style="left:18%; bottom:16%; animation-delay:2.2s"></div>
-            <div class="relative z-10 flex min-h-[30rem] items-center justify-center">
-              <picture class="block max-h-[31rem] max-w-[31rem] animate-[floatBottle_5.5s_ease-in-out_1.2s_infinite]">
-                <source srcset="/images/yor-vision/uploaded/yor-vision-bottle-uploaded-450w.webp 450w, /images/yor-vision/uploaded/yor-vision-bottle-uploaded-675w.webp 675w, /images/yor-vision/uploaded/yor-vision-bottle-uploaded.webp 900w" sizes="(max-width: 767px) 78vw, 31rem" type="image/webp">
-                <img class="product-art" src="/images/yor-vision/uploaded/yor-vision-bottle-uploaded.png" width="900" height="900" alt="Front bottle image of YOR VISION Mineral Drops with the original product label visible." fetchpriority="high">
-              </picture>
-              <div class="phone-card">
-                <div class="mb-3 h-2 w-10 rounded-full bg-white/25"></div>
-                <p class="text-xs font-bold uppercase tracking-widest text-orange-200">Selected Plan</p>
-                <p class="mt-2 text-lg font-black">Daily Wellness</p>
-                <div class="mt-5 rounded-2xl bg-white/10 p-3">
-                  <div class="flex items-center justify-between text-xs"><span>Subtotal</span><strong id="heroMiniPrice">₱960</strong></div>
-                  <div class="mt-2 h-2 rounded-full bg-white/10"><div class="h-full w-2/3 rounded-full bg-[#FF6900]"></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
 
       <section id="plans" class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -2647,7 +2495,6 @@
       document.getElementById('summarySavings').textContent = `Save ${peso(savings)}`;
       document.getElementById('qtyCount').textContent = state.qty;
       document.getElementById('totalPrice').textContent = peso(state.total);
-      document.getElementById('heroMiniPrice').textContent = peso(state.total);
       document.getElementById('checkoutPlan').textContent = plan.label;
       document.getElementById('checkoutSupply').textContent = plan.supply;
       document.getElementById('checkoutQty').textContent = state.qty;
@@ -2772,24 +2619,6 @@
 
     const header = document.getElementById('funnelHeader');
     addEventListener('scroll', () => header.classList.toggle('is-scrolled', scrollY > 12), { passive: true });
-
-    const scene = document.getElementById('sceneCard');
-    const spotlight = document.getElementById('spotlight');
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && matchMedia('(pointer:fine)').matches) {
-      scene.addEventListener('pointermove', event => {
-        const rect = scene.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / rect.width - .5;
-        const y = (event.clientY - rect.top) / rect.height - .5;
-        scene.style.transform = `rotateX(${(-y * 4).toFixed(2)}deg) rotateY(${(x * 7).toFixed(2)}deg)`;
-        spotlight.style.transform = `translate(${x * 28 - 50}%, ${y * 28 - 50}%)`;
-        document.documentElement.style.setProperty('--mx', `${event.clientX}px`);
-        document.documentElement.style.setProperty('--my', `${event.clientY}px`);
-      });
-      scene.addEventListener('pointerleave', () => {
-        scene.style.transform = '';
-        spotlight.style.transform = 'translate(-50%, -50%)';
-      });
-    }
 
     const revealObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
