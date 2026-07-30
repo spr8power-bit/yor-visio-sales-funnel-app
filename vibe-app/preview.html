@@ -448,9 +448,29 @@
     }
     .gallery-main {
       aspect-ratio: 16 / 11;
+      display: block;
+      position: relative;
       overflow: hidden;
       border-radius: 2rem;
       background: white;
+      cursor: zoom-in;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .gallery-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 52px rgba(11, 31, 51, .12);
+    }
+    .gallery-main:focus-visible,
+    .gallery-thumb:focus-visible,
+    .gallery-nav:focus-visible,
+    .lightbox-nav:focus-visible {
+      outline: 3px solid rgba(255, 105, 0, .45);
+      outline-offset: 4px;
+    }
+    .gallery-thumbs {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: .75rem;
     }
     .gallery-thumb {
       min-height: 5.25rem;
@@ -464,6 +484,60 @@
       border-color: var(--orange);
       transform: translateY(-2px);
     }
+    .gallery-nav,
+    .lightbox-nav {
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .94);
+      color: #0B1F33;
+      font-weight: 900;
+      box-shadow: 0 14px 34px rgba(11, 31, 51, .16);
+      transition: transform .2s ease, background .2s ease;
+    }
+    .gallery-nav:hover,
+    .lightbox-nav:hover {
+      transform: translateY(-1px) scale(1.04);
+      background: #fff7ef;
+    }
+    .gallery-nav {
+      position: absolute;
+      top: 50%;
+      z-index: 2;
+      width: 2.75rem;
+      height: 2.75rem;
+      transform: translateY(-50%);
+      border: 1px solid rgba(226, 232, 240, .95);
+      font-size: 1.7rem;
+    }
+    .gallery-nav:hover { transform: translateY(-50%) scale(1.04); }
+    .gallery-nav.prev { left: .75rem; }
+    .gallery-nav.next { right: .75rem; }
+    .gallery-hint {
+      position: absolute;
+      bottom: .85rem;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: rgba(11, 31, 51, .8);
+      padding: .45rem .8rem;
+      color: white;
+      font-size: .75rem;
+      font-weight: 900;
+      letter-spacing: .02em;
+      opacity: 0;
+      transition: opacity .2s ease;
+    }
+    .gallery-main:hover .gallery-hint,
+    .gallery-main:focus-visible .gallery-hint {
+      opacity: 1;
+    }
+    .lightbox-nav {
+      width: 3rem;
+      height: 3rem;
+      border: 1px solid rgba(226, 232, 240, .85);
+      font-size: 2rem;
+    }
     .lightbox {
       position: fixed;
       inset: 0;
@@ -475,6 +549,35 @@
       backdrop-filter: blur(12px);
     }
     .lightbox.open { display: grid; }
+    @media (max-width: 640px) {
+      .product-gallery-card {
+        border-radius: 1.5rem !important;
+        padding: .85rem !important;
+      }
+      .gallery-main {
+        border-radius: 1.25rem;
+      }
+      .gallery-thumbs {
+        display: flex;
+        gap: .65rem;
+        overflow-x: auto;
+        padding-bottom: .35rem;
+        scroll-snap-type: x proximity;
+      }
+      .gallery-thumb {
+        flex: 0 0 5.25rem;
+        min-height: 5.25rem;
+        scroll-snap-align: start;
+      }
+      .gallery-nav {
+        width: 2.35rem;
+        height: 2.35rem;
+        font-size: 1.45rem;
+      }
+      .gallery-nav.prev { left: .45rem; }
+      .gallery-nav.next { right: .45rem; }
+      .gallery-hint { opacity: 1; }
+    }
     .disclaimer {
       border: 1px solid rgba(181, 71, 8, .18);
       background: rgba(255, 243, 232, .72);
@@ -1637,18 +1740,22 @@
 
       <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div class="grid items-start gap-8 lg:grid-cols-[1.1fr_.9fr]">
-          <div class="glass reveal rounded-[2.25rem] p-4 sm:p-6">
-            <div class="gallery-main">
-              <img id="galleryImage" class="product-art-cover" src="/images/yor-vision/gallery/better-habits-better-vision.webp" srcset="/images/yor-vision/gallery/better-habits-better-vision-600w.webp 600w, /images/yor-vision/gallery/better-habits-better-vision-900w.webp 900w, /images/yor-vision/gallery/better-habits-better-vision.webp 1200w" sizes="(max-width: 1023px) 92vw, 58vw" width="1200" height="1200" alt="Better habits, better vision, better you YOR VISION benefit artwork.">
+          <div class="product-gallery-card glass reveal rounded-[2.25rem] p-4 sm:p-6">
+            <div class="relative">
+              <button id="openLightbox" type="button" class="gallery-main w-full" aria-label="Open selected product image">
+                <img id="galleryImage" class="product-art-cover" src="/images/yor-vision/gallery/better-habits-better-vision.webp" srcset="/images/yor-vision/gallery/better-habits-better-vision-600w.webp 600w, /images/yor-vision/gallery/better-habits-better-vision-900w.webp 900w, /images/yor-vision/gallery/better-habits-better-vision.webp 1200w" sizes="(max-width: 1023px) 92vw, 58vw" width="1200" height="1200" alt="Better habits, better vision, better you YOR VISION benefit artwork.">
+                <span class="gallery-hint">Tap image to enlarge</span>
+              </button>
+              <button type="button" class="gallery-nav prev" data-gallery-move="-1" aria-label="Previous product image">‹</button>
+              <button type="button" class="gallery-nav next" data-gallery-move="1" aria-label="Next product image">›</button>
             </div>
-            <div class="mt-4 grid grid-cols-5 gap-3" role="tablist" aria-label="Product image gallery">
+            <div class="gallery-thumbs mt-4" role="tablist" aria-label="Product image gallery">
               <button class="gallery-thumb" type="button" aria-selected="true" data-gallery-src="/images/yor-vision/gallery/better-habits-better-vision.webp" data-gallery-full="/images/yor-vision/gallery/better-habits-better-vision.webp" data-gallery-srcset="/images/yor-vision/gallery/better-habits-better-vision-600w.webp 600w, /images/yor-vision/gallery/better-habits-better-vision-900w.webp 900w, /images/yor-vision/gallery/better-habits-better-vision.webp 1200w" data-gallery-label="Better habits, better vision, better you YOR VISION benefit artwork." data-position="center"><img class="product-art-cover" src="/images/yor-vision/gallery/better-habits-better-vision-320w.webp" width="160" height="160" loading="lazy" alt=""></button>
               <button class="gallery-thumb" type="button" aria-selected="false" data-gallery-src="/images/yor-vision/gallery/daily-step-eye-wellness.webp" data-gallery-full="/images/yor-vision/gallery/daily-step-eye-wellness.webp" data-gallery-srcset="/images/yor-vision/gallery/daily-step-eye-wellness-600w.webp 600w, /images/yor-vision/gallery/daily-step-eye-wellness-900w.webp 900w, /images/yor-vision/gallery/daily-step-eye-wellness.webp 1200w" data-gallery-label="Your daily step toward better eye wellness YOR VISION benefit artwork." data-position="center"><img class="product-art-cover" src="/images/yor-vision/gallery/daily-step-eye-wellness-320w.webp" width="160" height="160" loading="lazy" alt=""></button>
               <button class="gallery-thumb" type="button" aria-selected="false" data-gallery-src="/images/yor-vision/gallery/screen-time-eye-wellness.webp" data-gallery-full="/images/yor-vision/gallery/screen-time-eye-wellness.webp" data-gallery-srcset="/images/yor-vision/gallery/screen-time-eye-wellness-600w.webp 600w, /images/yor-vision/gallery/screen-time-eye-wellness-900w.webp 900w, /images/yor-vision/gallery/screen-time-eye-wellness.webp 1200w" data-gallery-label="Screen time is real, eye wellness is a choice YOR VISION benefit artwork." data-position="center"><img class="product-art-cover" src="/images/yor-vision/gallery/screen-time-eye-wellness-320w.webp" width="160" height="160" loading="lazy" alt=""></button>
               <button class="gallery-thumb" type="button" aria-selected="false" data-gallery-src="/images/yor-vision/gallery/daily-choices-better-vision.webp" data-gallery-full="/images/yor-vision/gallery/daily-choices-better-vision.webp" data-gallery-srcset="/images/yor-vision/gallery/daily-choices-better-vision-600w.webp 600w, /images/yor-vision/gallery/daily-choices-better-vision-900w.webp 900w, /images/yor-vision/gallery/daily-choices-better-vision.webp 1200w" data-gallery-label="Daily choices, better vision YOR VISION benefit artwork." data-position="center"><img class="product-art-cover" src="/images/yor-vision/gallery/daily-choices-better-vision-320w.webp" width="160" height="160" loading="lazy" alt=""></button>
               <button class="gallery-thumb" type="button" aria-selected="false" data-gallery-src="/images/yor-vision/gallery/nourish-today-see-tomorrow.webp" data-gallery-full="/images/yor-vision/gallery/nourish-today-see-tomorrow.webp" data-gallery-srcset="/images/yor-vision/gallery/nourish-today-see-tomorrow-600w.webp 600w, /images/yor-vision/gallery/nourish-today-see-tomorrow-900w.webp 900w, /images/yor-vision/gallery/nourish-today-see-tomorrow.webp 1200w" data-gallery-label="Nourish today, see tomorrow YOR VISION benefit artwork." data-position="center"><img class="product-art-cover" src="/images/yor-vision/gallery/nourish-today-see-tomorrow-320w.webp" width="160" height="160" loading="lazy" alt=""></button>
             </div>
-            <button id="openLightbox" type="button" class="mt-4 inline-flex min-h-[48px] items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 font-black text-[#0B1F33]">View Larger <span aria-hidden="true">→</span></button>
           </div>
           <div class="reveal">
             <p class="text-sm font-black uppercase tracking-[.22em] text-[#FF6900]">Product Gallery</p>
@@ -2040,6 +2147,8 @@
   <div id="productLightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Expanded YOR VISION product artwork">
     <div class="relative w-full max-w-5xl rounded-[2rem] bg-white p-4 shadow-2xl">
       <button id="closeLightbox" type="button" class="absolute right-4 top-4 z-10 grid h-11 w-11 place-items-center rounded-full bg-[#0B1F33] font-black text-white" aria-label="Close product image">×</button>
+      <button type="button" class="lightbox-nav absolute left-4 top-1/2 z-10 -translate-y-1/2" data-lightbox-move="-1" aria-label="Previous expanded product image">‹</button>
+      <button type="button" class="lightbox-nav absolute right-4 top-1/2 z-10 -translate-y-1/2" data-lightbox-move="1" aria-label="Next expanded product image">›</button>
       <img id="lightboxImage" class="max-h-[82vh] w-full rounded-[1.5rem] object-contain" src="/images/yor-vision/gallery/better-habits-better-vision.webp" width="1200" height="1200" alt="Better habits, better vision, better you YOR VISION benefit artwork.">
     </div>
   </div>
@@ -2534,30 +2643,48 @@
     const galleryImage = document.getElementById('galleryImage');
     const lightbox = document.getElementById('productLightbox');
     const lightboxImage = document.getElementById('lightboxImage');
+    const galleryThumbs = Array.from(document.querySelectorAll('.gallery-thumb'));
+    let selectedGalleryIndex = Math.max(0, galleryThumbs.findIndex(button => button.getAttribute('aria-selected') === 'true'));
     const setLightboxImage = button => {
       lightboxImage.src = button.dataset.galleryFull || button.dataset.gallerySrc;
       lightboxImage.alt = button.dataset.galleryLabel;
     };
-    document.querySelectorAll('.gallery-thumb').forEach(button => {
+    const showGalleryImage = index => {
+      if (!galleryThumbs.length) return;
+      selectedGalleryIndex = (index + galleryThumbs.length) % galleryThumbs.length;
+      const button = galleryThumbs[selectedGalleryIndex];
+      galleryThumbs.forEach(item => item.setAttribute('aria-selected', 'false'));
+      button.setAttribute('aria-selected', 'true');
+      button.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      galleryImage.style.opacity = '0';
+      setTimeout(() => {
+        galleryImage.src = button.dataset.gallerySrc;
+        if (button.dataset.gallerySrcset) galleryImage.srcset = button.dataset.gallerySrcset;
+        else galleryImage.removeAttribute('srcset');
+        galleryImage.alt = button.dataset.galleryLabel;
+        galleryImage.style.objectPosition = button.dataset.position || 'center';
+        galleryImage.style.opacity = '1';
+        setLightboxImage(button);
+      }, 120);
+    };
+    galleryThumbs.forEach((button, index) => {
+      button.addEventListener('click', () => showGalleryImage(index));
+    });
+    document.querySelectorAll('[data-gallery-move]').forEach(button => {
       button.addEventListener('click', () => {
-        document.querySelectorAll('.gallery-thumb').forEach(item => item.setAttribute('aria-selected', 'false'));
-        button.setAttribute('aria-selected', 'true');
-        galleryImage.style.opacity = '0';
-        setTimeout(() => {
-          galleryImage.src = button.dataset.gallerySrc;
-          if (button.dataset.gallerySrcset) galleryImage.srcset = button.dataset.gallerySrcset;
-          else galleryImage.removeAttribute('srcset');
-          galleryImage.alt = button.dataset.galleryLabel;
-          galleryImage.style.objectPosition = button.dataset.position || 'center';
-          galleryImage.style.opacity = '1';
-          setLightboxImage(button);
-        }, 140);
+        showGalleryImage(selectedGalleryIndex + Number(button.dataset.galleryMove));
       });
     });
     document.getElementById('openLightbox').addEventListener('click', () => {
-      const selectedGalleryButton = document.querySelector('.gallery-thumb[aria-selected="true"]');
+      const selectedGalleryButton = galleryThumbs[selectedGalleryIndex];
       if (selectedGalleryButton) setLightboxImage(selectedGalleryButton);
       lightbox.classList.add('open');
+    });
+    document.querySelectorAll('[data-lightbox-move]').forEach(button => {
+      button.addEventListener('click', event => {
+        event.stopPropagation();
+        showGalleryImage(selectedGalleryIndex + Number(button.dataset.lightboxMove));
+      });
     });
     document.getElementById('closeLightbox').addEventListener('click', () => lightbox.classList.remove('open'));
     lightbox.addEventListener('click', event => {
@@ -2565,6 +2692,10 @@
     });
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape') lightbox.classList.remove('open');
+      if (lightbox.classList.contains('open')) {
+        if (event.key === 'ArrowLeft') showGalleryImage(selectedGalleryIndex - 1);
+        if (event.key === 'ArrowRight') showGalleryImage(selectedGalleryIndex + 1);
+      }
       if (document.getElementById('testimonialLightbox').classList.contains('open')) {
         if (event.key === 'Escape') document.getElementById('testimonialLightbox').classList.remove('open');
         if (event.key === 'ArrowLeft') moveTestimonialLightbox(-1);
